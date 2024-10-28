@@ -7,6 +7,11 @@
         <!-- PeerJS and Vue.js libraries -->
         <script src="https://unpkg.com/peerjs@1.2.0/dist/peerjs.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    if (window.location.pathname.endsWith(".html")) {
+        window.history.replaceState(null, null, window.location.pathname.replace(".html", ""));
+    }
+</script>
         
         <!-- Font and Materialize CSS for styling -->
         <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
