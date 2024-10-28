@@ -108,29 +108,42 @@
 <body class="relative">
     <div id="particles-js"></div>
 
-    <header class="bg-transparent py-4 relative z-10">
+    <header class="bg-transparent py-4">
         <nav class="container mx-auto flex justify-between items-center px-4">
-            <a href="index.html" class="text-4xl font-extrabold text-purple-500"><i class="fas fa-rocket"></i> Space Games</a>
-            <div class="flex space-x-8 items-center text-xl">
-                <a href="index.html" class="nav-link text-lg font-bold"><i class="fas fa-home"></i> Home</a>
-                <a href="projects.html" class="nav-link text-lg font-bold"><i class="fas fa-gamepad"></i> Games</a>
-                <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-shield-alt"></i> Proxy</a>
-                <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-comments"></i> Chat Room</a>
-                
-                <div class="settings-dropdown">
-                    <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-cog"></i> Settings</a>
-                    <div class="settings-dropdown-content">
-                        <a href="#" class="text-lg font-bold">Profile Settings</a>
-                        <   a href="#" class="text-lg font-bold">Account Management</a>
-                        <a href="#" class="text-lg font-bold">Privacy Settings</a>
-                    </div>
-                </div>
+          <a href="index.html" class="text-4xl font-extrabold text-purple-500"><i class="fas fa-rocket"></i> Space Games</a>
+          <div class="flex space-x-8 items-center text-xl"> <!-- Increased space and text size -->
+            <a href="index.html" class="nav-link text-lg font-bold"><i class="fas fa-home"></i> Home</a> <!-- Increased font weight and size -->
+            <a href="projects.html" class="nav-link text-lg font-bold"><i class="fas fa-gamepad"></i> Games</a>
+            <a href="search.html" class="nav-link text-lg font-bold"><i class="fas fa-shield-alt"></i> Proxy</a>
+            <a href="games.html" class="nav-link text-lg font-bold"><i class="fas fa-window-maximize"></i> Apps</a>
+            <a href="chat.html" class="nav-link text-lg font-bold"><i class="fas fa-comments"></i> Chat Room</a>
+      
+            
+            <!-- Settings Dropdown -->
+            <div class="settings-dropdown">
+              <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-cog"></i> Settings</a>
+              <div class="settings-dropdown-content">
+                <a href="settings.html" class="text-lg font-bold">Website Settings</a>
+                <a href="#" class="text-lg font-bold">Cooie settings</a>
+                <a href="#" class="text-lg font-bold">Made by: Shadow</a>
+              </div>
             </div>
+          </div>
         </nav>
-    </header>
+      </header>
 
     <main class="container mx-auto px-4 py-8 relative z-10">
         <h1 class="text-4xl font-bold text-center text-purple-300 mb-8">Games Collection</h1>
+
+        <!-- Search bar and Category Filter -->
+        <div class="flex justify-between items-center mb-8">
+            <input type="text" id="searchInput" class="px-4 py-2 bg-gray-800 text-white rounded" placeholder="Search for a game by URL...">
+            
+            <select id="categoryFilter" class="px-4 py-2 bg-gray-800 text-white rounded">
+                <option value="">All Categories</option>
+                <!-- Options will be dynamically generated -->
+            </select>
+        </div>
 
         <div class="game-grid" id="gameGrid">
             <!-- Game items will be dynamically inserted here -->
@@ -171,34 +184,78 @@
 
     <!-- Game data and rendering script -->
     <script>
-        // Fetch the game data from g.json
+        let gamesData = [];
+
+        // Fetch the game data from g.json and initialize
         fetch('g.json')
             .then(response => response.json())
             .then(games => {
-                const gameGrid = document.getElementById('gameGrid');
-                games.forEach(game => {
-                    const gameItem = document.createElement('div');
-                    gameItem.className = 'game-item';
-                    gameItem.innerHTML = `
-                        <div class="app-button" onclick="launch('${game.url}');">
-                            <img src="${game.img}" alt="${game.name}">
-                            <p>${game.name}</p>
-                        </div>
-                    `;
-                    gameGrid.appendChild(gameItem);
-                });
+                gamesData = games;
+                populateGameGrid(games);
+                populateCategoryFilter(games);
             })
             .catch(error => console.error('Error loading game data:', error));
 
-        // Launch function
+        // Populate games in the grid
+        function populateGameGrid(games) {
+            const gameGrid = document.getElementById('gameGrid');
+            gameGrid.innerHTML = '';  // Clear grid
+
+            games.forEach(game => {
+                const gameItem = document.createElement('div');
+                gameItem.className = 'game-item';
+                gameItem.innerHTML = `
+                    <div class="app-button" onclick="launch('${game.url}');">
+                        <img src="${game.img}" alt="${game.name}">
+                        <p>${game.name}</p>
+                    </div>
+                `;
+                gameGrid.appendChild(gameItem);
+            });
+        }
+
+        // Populate categories in dropdown
+        function populateCategoryFilter(games) {
+            const categories = new Set();
+            games.forEach(game => game.categories.forEach(cat => categories.add(cat)));
+
+            const categoryFilter = document.getElementById('categoryFilter');
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                categoryFilter.appendChild(option);
+            });
+        }
+
+        // Filter games by search term or category
+        document.getElementById('searchInput').addEventListener('input', function() {
+            filterGames();
+        });
+        document.getElementById('categoryFilter').addEventListener('change', function() {
+            filterGames();
+        });
+
+        function filterGames() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const selectedCategory = document.getElementById('categoryFilter').value;
+
+            const filteredGames = gamesData.filter(game => {
+                const matchesSearch = game.url.toLowerCase().includes(searchInput);
+                const matchesCategory = selectedCategory === '' || game.categories.includes(selectedCategory);
+                return matchesSearch && matchesCategory;
+            });
+
+            populateGameGrid(filteredGames);
+        }
+
+        // Launch game in a new window
         function launch(url) {
-            // Check if the URL starts with http:// or https://
             if (!url.startsWith('http://') && !url.startsWith('https://')) {
-                // If not, prepend https://
                 url = 'https://' + url;
             }
             window.open(url, '_blank');
-        }z
+        }
     </script>
 
 <script src="hotkey.js"></script>
