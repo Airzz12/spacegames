@@ -1,8 +1,8 @@
 [
 	{
 		"name": "! Request an app",
-		"url": "https://docs.google.com/forms/d/e/1FAIpQLSeZcPMt3toVL8EtKLfHMbKpx4lZzqAAr5ifvZJRwoXqsLSf-A/viewform?usp=pp_url",
-		"img": "/assets/requestGame.jpg",
+		"url": "MonkeyMart/index.html",
+		"img": "monkeymart.jpg",
 		"categories": ["all"]
 	},
 	{
