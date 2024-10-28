@@ -3570,11 +3570,11 @@
     },
     {
         "name": "Monkey Mart",
-        "url": "/e/2/monkey-mart/index.html",
+        "url": "https://pixelclassroom.cuello.ca/MonkeyMart/index.html",
         "img": "/assets/media/icons/mm.webp",
         "categories": [
             "all",
-            "local"
+            "emu"
         ]
     },
     {
