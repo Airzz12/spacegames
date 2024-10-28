@@ -1,7 +1,7 @@
 [
 	{
-		"name": "! Request an app",
-		"url": "MonkeyMart/index.html",
+		"name": "Monkey Mart",
+		"url": "https://pixelclassroom.cuello.ca/MonkeyMart/index.html",
 		"img": "monkeymart.jpg",
 		"categories": ["all"]
 	},
