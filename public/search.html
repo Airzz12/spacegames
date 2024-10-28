@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Games - Search</title>
+
+  <!-- Tailwind CSS for utility classes -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS for scroll animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <!-- Swiper for carousel effect -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+  <style>
+    /* Background Styling for Space Theme */
+    body {
+      background: radial-gradient(circle, #1a0033, #0d001a);
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+    }
+    
+    /* Navbar Styling */
+    .nav-link {
+      transition: color 0.3s ease, transform 0.3s ease;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 1.125rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .nav-link:hover {
+      color: #ff80ff;
+      transform: translateY(-3px);
+    }
+
+    /* Glassy Effect for Boxes */
+    .glass-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease;
+    }
+    
+    .glass-box:hover {
+      transform: scale(1.05);
+    }
+
+    /* Title Text Animation */
+    .title {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #ff80ff;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 0.15em solid #ff80ff;
+      text-align: center;
+      display: inline-block;
+    }
+
+    /* Settings Dropdown Styling */
+    .settings-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .settings-dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: rgba(32, 32, 32, 0.9);
+      min-width: 180px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    .settings-dropdown-content a {
+      color: #ffffff;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.875rem;
+    }
+
+    .settings-dropdown-content a:hover {
+      background-color: #4a4a4a;
+    }
+
+    .settings-dropdown:hover .settings-dropdown-content {
+      display: block;
+    }
+
+    /* Custom Styling for Particle Background */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    .neon-text {
+      color: #ff80ff;
+      font-size: inherit;
+      text-shadow: 0 0 5px #ff80ff, 0 0 10px #ff80ff, 0 0 20px #ff80ff;
+    }
+  </style>
+
+  <script src="https://kit.fontawesome.com/52676eb1e5.js" crossorigin="anonymous"></script>
+  <script src="/lf.js"></script>
+  <script async src="https://arc.io/widget.min.js#KpYQhCTB"></script>
+  <script src="settings.js" defer></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PWD8SS29YZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-PWD8SS29YZ');
+  </script>
+</head>
+<body class="relative">
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+<header class="bg-transparent py-4">
+  <nav class="container mx-auto flex justify-between items-center px-4">
+    <a href="index.html" class="text-4xl font-extrabold text-purple-500"><i class="fas fa-rocket"></i> Space Games</a>
+    <div class="flex space-x-8 items-center text-xl"> <!-- Increased space and text size -->
+      <a href="index.html" class="nav-link text-lg font-bold"><i class="fas fa-home"></i> Home</a> <!-- Increased font weight and size -->
+      <a href="projects.html" class="nav-link text-lg font-bold"><i class="fas fa-gamepad"></i> Games</a>
+      <a href="search.html" class="nav-link text-lg font-bold"><i class="fas fa-shield-alt"></i> Proxy</a>
+      <a href="games.html" class="nav-link text-lg font-bold"><i class="fas fa-window-maximize"></i> Apps</a>
+      <a href="chat.html" class="nav-link text-lg font-bold"><i class="fas fa-comments"></i> Chat Room</a>
+
+      
+      <!-- Settings Dropdown -->
+      <div class="settings-dropdown">
+        <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-cog"></i> Settings</a>
+        <div class="settings-dropdown-content">
+          <a href="settings.html" class="text-lg font-bold">Website Settings</a>
+          <a href="#" class="text-lg font-bold">Cooie settings</a>
+          <a href="#" class="text-lg font-bold">Made by: Shadow</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8">Search Space Games</h1>
+    <form class="hvr-bounce-in" id="uv-form">
+      <input class="hvr-bounce-in" id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
+      <input class="proxy w-full p-4 rounded-lg bg-white bg-opacity-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" id="uv-address" type="text" placeholder="Enter a URL or Search" />
+    </form>
+
+    <div class="mt-8 text-center">
+      <a href="mathshub1.netlify.app" target="_blank" class="inline-block px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-300">
+        GO BACK TO MATHSHUB
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-transparent py-8 text-center">
+    <p class="text-purple-400">© 2024 Space Games - Reach for the Stars!</p>
+  </footer>
+
+  <!-- Particle.js Script -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 86, density: { enable: true, value_area: 800 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle', stroke: { width: 0, color: '#000000' }, polygon: { nb_sides: 5 } },
+        opacity: { value: 1, random: true },
+        size: { value: 2, random: true },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 0.5, direction: 'bottom', out_mode: 'out' }
+      },
+      interactivity: {
+        detect_on: 'window',
+        events: { onclick: { enable: true, mode: 'push' } },
+        modes: { bubble: { distance: 400, size: 40, duration: 2 }, push: { particles_nb: 10 } }
+      },
+      retina_detect: true
+    });
+  </script>
+
+  <script src="uv/uv.bundle.js" defer></script>
+  <script src="uv/uv.config.js" defer></script>
+  <script src="/index.js" defer></script>
+  <script src="hotkey.js"></script>
+  <script>
+    __uv$config.sw;
+  </script>
+</body>
+</html>
