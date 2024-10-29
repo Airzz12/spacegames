@@ -152,7 +152,19 @@
         </div>
 
         <div class="game-grid" id="gameGrid">
-            <!-- Game items will be dynamically inserted here -->
+            <!-- Monkey Mart games at the top -->
+            <div class="game-item">
+                <a href="MonkeyMart/index.html" class="app-button">
+                    <img src="monkeymart.png" alt="Monkey Mart">
+                    <p>Monkey Mart</p>
+                </a>
+            </div>
+            <div class="game-item">
+                <a href="crazy-drifter/index.html" class="app-button">
+                    <img src="crazy-drifter/512.jpg" alt="Crazy Drifter">
+                    <p>Crazy Drifter</p>
+                </a>
+            </div>
         </div>
     </main>
 
@@ -190,35 +202,41 @@
 
     <!-- Game data and rendering script -->
     <script>
-        let gamesData = [];
+      let gamesData = [];
 
-        // Fetch the game data from g.json and initialize
-        fetch('g.json')
-            .then(response => response.json())
-            .then(games => {
-                gamesData = games;
-                populateGameGrid(games);
-                populateCategoryFilter(games);
-            })
-            .catch(error => console.error('Error loading game data:', error));
+// Fetch the game data from g.json and initialize
+fetch('g.json')
+    .then(response => response.json())
+    .then(games => {
+        gamesData = games;
+        populateGameGrid(games);
+        populateCategoryFilter(games);
+    })
+    .catch(error => console.error('Error loading game data:', error));
 
-        // Populate games in the grid
-        function populateGameGrid(games) {
-            const gameGrid = document.getElementById('gameGrid');
-            gameGrid.innerHTML = '';  // Clear grid
+// Populate games in the grid
+function populateGameGrid(games) {
+    const gameGrid = document.getElementById('gameGrid');
+    
+    // Keep the existing Monkey Mart games at the top
+    const existingGames = gameGrid.innerHTML;
 
-            games.forEach(game => {
-                const gameItem = document.createElement('div');
-                gameItem.className = 'game-item';
-                gameItem.innerHTML = `
-                    <div class="app-button" onclick="launch('${game.url}');">
-                        <img src="${game.img}" alt="${game.name}">
-                        <p>${game.name}</p>
-                    </div>
-                `;
-                gameGrid.appendChild(gameItem);
-            });
-        }
+    // Clear the rest of the grid
+    gameGrid.innerHTML = existingGames;
+
+    // Add the games from g.json
+    games.forEach(game => {
+        const gameItem = document.createElement('div');
+        gameItem.className = 'game-item';
+        gameItem.innerHTML = `
+            <div class="app-button" onclick="launch('${game.url}');">
+                <img src="${game.img}" alt="${game.name}">
+                <p>${game.name}</p>
+            </div>
+        `;
+        gameGrid.appendChild(gameItem);
+    });
+}
 
         // Populate categories in dropdown
         function populateCategoryFilter(games) {
