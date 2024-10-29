@@ -3,32 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Docs</title>
+  <title>Space Games</title>
   <link rel="icon" type="image/x-icon" href="fav.png">
-  <script>
-    if (window.location.pathname.endsWith(".html")) {
-        window.history.replaceState(null, null, window.location.pathname.replace(".html", ""));
-    }
-</script>
 
-  <!-- Tailwind CSS for utility classes -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
-  <!-- Font Awesome for icons -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- AOS for scroll animations -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
-  <!-- Swiper for carousel effect -->
-  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+  <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
   <style>
-    /* Background Styling for Space Theme */
     body {
       background: radial-gradient(circle, #1a0033, #0d001a);
       color: #ffffff;
       font-family: 'DM Sans', sans-serif;
     }
-    
-    /* Navbar Styling */
     .nav-link {
       transition: color 0.3s ease, transform 0.3s ease;
       font-family: 'Roboto', sans-serif;
@@ -36,13 +23,10 @@
       font-size: 1.125rem;
       color: rgba(255, 255, 255, 0.7);
     }
-
     .nav-link:hover {
       color: #ff80ff;
       transform: translateY(-3px);
     }
-
-    /* Glassy Effect for Boxes */
     .glass-box {
       background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
@@ -50,31 +34,22 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    
     .glass-box:hover {
-      transform: scale(1.05);
+      transform: translateY(-10px);
+      box-shadow: 0 10px 40px rgba(255, 128, 255, 0.3);
     }
-
-    /* Title Text Animation */
     .title {
       font-size: 3.5rem;
       font-weight: bold;
       color: #ff80ff;
-      white-space: nowrap;
-      overflow: hidden;
-      border-right: 0.15em solid #ff80ff;
-      text-align: center;
-      display: inline-block;
+      text-shadow: 0 0 10px rgba(255, 128, 255, 0.5);
     }
-
-    /* Settings Dropdown Styling */
     .settings-dropdown {
       position: relative;
       display: inline-block;
     }
-
     .settings-dropdown-content {
       display: none;
       position: absolute;
@@ -85,24 +60,20 @@
       border-radius: 8px;
       z-index: 1;
     }
-
     .settings-dropdown-content a {
       color: #ffffff;
       padding: 12px 16px;
       text-decoration: none;
       display: block;
       font-size: 0.875rem;
+      transition: background-color 0.3s ease;
     }
-
     .settings-dropdown-content a:hover {
       background-color: #4a4a4a;
     }
-
     .settings-dropdown:hover .settings-dropdown-content {
       display: block;
     }
-
-    /* Custom Styling for Particle Background */
     #particles-js {
       position: absolute;
       width: 100%;
@@ -112,152 +83,199 @@
       z-index: -1;
     }
     .neon-text {
-    color: #ff80ff;
-    font-size: inherit; /* Matches font size of surrounding text */
-    text-shadow: 0 0 5px #ff80ff, 0 0 10px #ff80ff, 0 0 20px #ff80ff;
-  }
+      color: #ff80ff;
+      text-shadow: 0 0 5px #ff80ff, 0 0 10px #ff80ff, 0 0 20px #ff80ff;
+    }
+    .swiper-container {
+      overflow: hidden;
+      padding: 0 10%;
+      max-width: 100%;
+      padding: 0;
+    }
+    .swiper-slide {
+      width: 300px !important;
+      height: 400px !important;
+      margin: 0 20px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    .swiper-slide-active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .swiper-slide-prev,
+    .swiper-slide-next {
+      opacity: 0.7;
+      transform: scale(0.8);
+    }
+    .swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
+      opacity: 0.4;
+      transform: scale(0.6);
+    }
+    .category-section {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .category-section:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(255, 128, 255, 0.3);
+    }
+    .category-image {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .category-image:hover {
+      transform: scale(1.1);
+      z-index: 1;
+    }
+    .category-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(255,128,255,0) 0%, rgba(255,128,255,0.5) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .category-image:hover::after {
+      opacity: 1;
+    }
   </style>
 </head>
 <body class="relative">
-
-  <!-- Particle Background -->
   <div id="particles-js"></div>
 
- <!-- Navbar with Settings Dropdown -->
-<header class="bg-transparent py-4">
-  <nav class="container mx-auto flex justify-between items-center px-4">
-    <a href="index.html" class="text-4xl font-extrabold text-purple-500"><i class="fas fa-rocket"></i> Space Games</a>
-    <div class="flex space-x-8 items-center text-xl"> <!-- Increased space and text size -->
-      <a href="index.html" class="nav-link text-lg font-bold"><i class="fas fa-home"></i> Home</a> <!-- Increased font weight and size -->
-      <a href="projects.html" class="nav-link text-lg font-bold"><i class="fas fa-gamepad"></i> Games</a>
-      <a href="search.html" class="nav-link text-lg font-bold"><i class="fas fa-shield-alt"></i> Proxy</a>
-      <a href="games.html" class="nav-link text-lg font-bold"><i class="fas fa-window-maximize"></i> Apps</a>
-      <a href="chat.html" class="nav-link text-lg font-bold"><i class="fas fa-comments"></i> Chat Room</a>
-
-      
-      <!-- Settings Dropdown -->
-      <div class="settings-dropdown">
-        <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-cog"></i> Settings</a>
-        <div class="settings-dropdown-content">
-          <a href="settings.html" class="text-lg font-bold">Website Settings</a>
-          <a href="links.html" class="text-lg font-bold">Links</a>
-          <a href="#" class="text-lg font-bold">Made by: Shadow</a>
+  <header class="bg-transparent py-4">
+    <nav class="container mx-auto flex justify-between items-center px-4">
+      <a href="index.html" class="text-4xl font-extrabold text-purple-500"><i class="fas fa-rocket"></i> Space Games</a>
+      <div class="flex space-x-8 items-center text-xl">
+        <a href="index.html" class="nav-link text-lg font-bold"><i class="fas fa-home"></i> Home</a>
+        <a href="projects.html" class="nav-link text-lg font-bold"><i class="fas fa-gamepad"></i> Games</a>
+        <a href="search.html" class="nav-link text-lg font-bold"><i class="fas fa-shield-alt"></i> Proxy</a>
+        <a href="games.html" class="nav-link text-lg font-bold"><i class="fas fa-window-maximize"></i> Apps</a>
+        <a href="chat.html" class="nav-link text-lg font-bold"><i class="fas fa-comments"></i> Chat Room</a>
+        
+        <div class="settings-dropdown">
+          <a href="#" class="nav-link text-lg font-bold"><i class="fas fa-cog"></i> Settings</a>
+          <div class="settings-dropdown-content">
+            <a href="settings.html" class="text-lg font-bold">Website Settings</a>
+            <a href="links.html" class="text-lg font-bold">Links</a>
+            <a href="#" class="text-lg font-bold">Made by: Shadow</a>
+          </div>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
+    </nav>
+  </header>
 
-
-
-  <!-- Hero Section with Animated Title -->
   <section class="flex flex-col items-center text-center py-32" data-aos="fade-down">
     <h1 class="text-5xl font-bold text-white">Welcome to <span id="changing-text" class="neon-text"></span>!</h1>
     <p class="text-xl mt-4 text-purple-200">Explore the galaxy of exciting games and experiences.</p>
   </section>
 
-  <!-- Hot Games Carousel -->
   <section class="container mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-purple-300 mb-10 text-center" data-aos="fade-left">🌌 Hot Games in the Galaxy</h2>
-    <div class="swiper-container">
+    <h2 class="text-4xl font-bold text-purple-300 mb-10 text-center" data-aos="fade-left">🌌 Hot Games in the Galaxy</h2>
+    <div class="swiper-container" style="width: 1024px; height: 512px; margin: 0 auto;">
       <div class="swiper-wrapper">
-        <!-- Game Slide 1 -->
-        <div class="swiper-slide glass-box p-6 text-center" data-aos="zoom-in">
-          <img src="monkeymart.jpg" alt="Galactic Racer" class="w-full object-cover rounded-md mb-4" style="height: 700px;"> <!-- Custom height -->
-          <h3 class="text-2xl font-semibold text-purple-400"><i class="fas fa-rocket"></i> Monkey Mart</h3>
-        <p class="mt-2 text-purple-200">Monkey Mart a shopping game as monkeys</p>
-        <a href="MonkeyMart/index.html">
-          <button class="mt-4 px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">Play Now</button>
-      </a>      
-        </div>        
-        <!-- Game Slide 2 -->
-        <div class="swiper-slide glass-box p-6 text-center" data-aos="zoom-in">
-          <img src="drifter.jpg" alt="Galactic Racer" class="w-full object-cover rounded-md mb-4" style="height: 700px;"> <!-- Custom height -->
-          <h3 class="text-2xl font-semibold text-purple-400"><i class="fas fa-rocket"></i> Car Drifter</h3>
-          <p class="mt-2 text-purple-200">Drift the cars in places</p>
-          <a href="MonkeyMart/index.html">
-            <button class="mt-4 px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">Play Now</button>
-        </a>   
-        </div>        
-        <!-- Game Slide 3 -->
-        <div class="swiper-slide glass-box p-6 text-center" data-aos="zoom-in">
-          <img src="timeshoot3.avif" alt="Galactic Racer" class="w-full object-cover rounded-md mb-4" style="height: 700px;"> <!-- Custom height -->
-          <h3 class="text-2xl font-semibold text-purple-400"><i class="fas fa-rocket"></i> Time Shooter 3</h3>
-          <p class="mt-2 text-purple-200">Race through the stars and explore alien worlds!</p>
-          <a href="ts3/index.html">
-            <button class="mt-4 px-6 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">Play Now</button>
-        </a>   
-        </div>        
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="monkeymart.jpg" alt="Monkey Mart" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-rocket"></i> Monkey Mart</h3>
+          <p class="mt-1 text-purple-200 text-sm">Monkey Mart: A shopping game as monkeys</p>
+          <a href="MonkeyMart/index.html" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</a>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="drifter.jpg" alt="Car Drifter" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-car"></i> Car Drifter</h3>
+          <p class="mt-1 text-purple-200 text-sm">Drift the cars in exciting places</p>
+          <a href="crazy-drifter/index.html" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</a>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="timeshoot3.avif" alt="Time Shooter 3" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-clock"></i> Time Shooter 3</h3>
+          <p class="mt-1 text-purple-200 text-sm">Race through time and explore alien worlds!</p>
+          <a href="ts3/index.html" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</a>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="assets/media/icons/bitlife.webp" alt="Space Invaders" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-user-astronaut"></i> Bitlife</h3>
+          <p class="mt-1 text-purple-200 text-sm">Bitlife</p>
+          <button onclick="launch('https://ubg365.github.io/bitlife-life-simulator/play.html')" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</button>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="assets/media/icons/1v1-lol.webp" alt="Galactic Racer" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-rocket"></i> 1V1 lol</h3>
+          <p class="mt-1 text-purple-200 text-sm">Its simple, its like fortnite</p>
+          <button onclick="launch('https://1v1.lol/')" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</button>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="assets/imgs/g/Basketball_Random.webp" alt="Asteroid Miner" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-gem"></i> Basketball Random</h3>
+          <p class="mt-1 text-purple-200 text-sm">Random ahh basketball</p>
+          <button onclick="launch('https://basketrandomonline.github.io/g8/basket-random/')" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</button>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="assets/imgs/g/Basketball_Stars.webp" alt="Cosmic Puzzle" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-puzzle-piece"></i> BasketBall Stars</h3>
+          <p class="mt-1 text-purple-200 text-sm">Everyone knows its, basketball stars</p>
+          <button onclick="launch('https://basketballstars.pro/game/basketball-stars/')" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</button>
+        </div>
+        <div class="swiper-slide glass-box p-4 text-center" data-aos="zoom-in">
+          <img src="assets/imgs/g/Paper_io.webp" alt="Alien Shooter" class="w-full h-64 object-cover rounded-md mb-2">
+          <h3 class="text-xl font-semibold text-purple-400"><i class="fas fa-meteor"></i> Paper.io</h3>
+          <p class="mt-1 text-purple-200 text-sm">Get other people and destroy them</p>
+          <button onclick="launch('https://paper-io.com/')" class="inline-block mt-2 px-4 py-1 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors duration-300 text-sm">Play Now</button>
+        </div>
       </div>
-      <!-- Swiper Pagination and Navigation -->
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
     </div>
   </section>
 
   <section class="container mx-auto px-6 py-16">
-    <h2 class="text-3xl font-bold text-purple-300 mb-10 text-center" data-aos="fade-right">Explore by Category</h2>
+    <h2 class="text-4xl font-bold text-purple-300 mb-10  text-center" data-aos="fade-right">Explore by Category</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-  
-      <!-- Car Games -->
-      <div class="category-section bg-white bg-opacity-10 rounded-lg p-5">
+      <div class="category-section glass-box p-5">
         <h3 class="text-2xl font-semibold text-purple-400 mb-4 text-center">🚗 Car Games</h3>
-        <div class="grid grid-cols-3 md:grid-cols-5 gap-4 justify-center">
-          <img src="img/1bp.webp" alt="Car Game 1" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/2.jpg" alt="Car Game 2" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/3.png" alt="Car Game 3" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/4.jpg" alt="Car Game 4" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/5.png" alt="Car Game 5" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/6.jpg" alt="Car Game 6" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/7.jpg" alt="Car Game 7" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/8.jpeg" alt="Car Game 8" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/9.jpg" alt="Car Game 9" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-center">
+          <div class="category-image rounded-md overflow-hidden"><img src="img/1bp.webp" alt="Car Game 1" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/2.jpg" alt="Car Game 2" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/3.png" alt="Car Game 3" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/4.jpg" alt="Car Game 4" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/5.png" alt="Car Game 5" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/6.jpg" alt="Car Game 6" class="w-full h-32 object-cover"></div>
         </div>
       </div>
-  
-      <!-- Shooter Games -->
-      <div class="category-section bg-white bg-opacity-10 rounded-lg p-5">
+      <div class="category-section glass-box p-5">
         <h3 class="text-2xl font-semibold text-purple-400 mb-4 text-center">🔫 Shooter Games</h3>
-        <div class="grid grid-cols-3 md:grid-cols-5 gap-4 justify-center">
-          <img src="img/1s.jpg" alt="Shooter Game 1" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/2sjpg.jpg" alt="Shooter Game 2" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/3s.jpg" alt="Shooter Game 3" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/4s.jpg" alt="Shooter Game 4" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/5s.jpg" alt="Shooter Game 5" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/6s.avif" alt="Shooter Game 6" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/7s.jpg" alt="Shooter Game 7" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/8s.jpg" alt="Shooter Game 8" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/9s.avif" alt="Shooter Game 9" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-center">
+          <div class="category-image rounded-md overflow-hidden"><img src="img/1s.jpg" alt="Shooter Game 1" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/2sjpg.jpg" alt="Shooter Game 2" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/3s.jpg" alt="Shooter Game 3" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/4s.jpg" alt="Shooter Game 4" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/5s.jpg" alt="Shooter Game 5" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/6s.avif" alt="Shooter Game 6" class="w-full h-32 object-cover"></div>
         </div>
       </div>
-  
-      <div class="category-section bg-white bg-opacity-10 rounded-lg p-5">
-        <h3 class="text-2xl font-semibold text-purple-400 mb-4 text-center">🔫 Simulator Games</h3>
-        <div class="grid grid-cols-3 md:grid-cols-5 gap-4 justify-center">
-          <img src="img/1s.jpg" alt="Shooter Game 1" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/2sjpg.jpg" alt="Shooter Game 2" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/3s.jpg" alt="Shooter Game 3" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/4s.jpg" alt="Shooter Game 4" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/5s.jpg" alt="Shooter Game 5" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/6s.avif" alt="Shooter Game 6" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/7s.jpg" alt="Shooter Game 7" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/8s.jpg" alt="Shooter Game 8" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
-          <img src="img/9s.avif" alt="Shooter Game 9" class="w-40 h-auto object-cover rounded-md transition-transform duration-300 hover:scale-110 hover:shadow-lg">
+      <div class="category-section glass-box p-5">
+        <h3 class="text-2xl font-semibold text-purple-400 mb-4 text-center">🎮 Simulator Games</h3>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 justify-center">
+          <div class="category-image rounded-md overflow-hidden"><img src="img/7.jpg" alt="Simulator Game 1" class="w-full h-32 object-cover"></div>
+          <div class="category-image  rounded-md overflow-hidden"><img src="img/7s.jpg" alt="Simulator Game 2" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/8.jpeg" alt="Simulator Game 3" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/8s.jpg" alt="Simulator Game 4" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/9.jpg" alt="Simulator Game 5" class="w-full h-32 object-cover"></div>
+          <div class="category-image rounded-md overflow-hidden"><img src="img/9s.avif" alt="Simulator Game 6" class="w-full h-32 object-cover"></div>
         </div>
       </div>
-  
-  
     </div>
   </section>
 
-  <!-- Footer -->
   <footer class="bg-transparent py-8 text-center">
     <p class="text-purple-400">© 2024 Space Games - Reach for the Stars!</p>
   </footer>
 
-  <!-- Particle.js Script -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  
   <script>
     particlesJS('particles-js', {
       particles: {
@@ -276,13 +294,16 @@
       },
       retina_detect: true
     });
-  </script>
 
-  <!-- Swiper JS for Carousel -->
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script>
     const swiper = new Swiper('.swiper-container', {
+      slidesPerView: 3,
+      spaceBetween: 30,
+      centeredSlides: true,
       loop: true,
+      autoplay: {
+        delay: 2000, // Change this from 4000 to 3000
+        disableOnInteraction: false,
+      },
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
@@ -291,22 +312,28 @@
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1,
+          spaceBetween: 10
+        },
+        640: {
+          slidesPerView: 2,
+          spaceBetween: 20
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30
+        }
+      }
     });
-  </script>
 
-  <!-- AOS for Scroll Animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
 
-  <!-- Backspace Effect for Changing Text -->
-  <script>
-    const textArray = ["Space Games", "the best unblocker", "the best games website","best ui"];
+    const textArray = ["Space Games", "the best unblocker", "the best games website", "best ui"];
     const changingText = document.getElementById("changing-text");
     let arrayIndex = 0;
     let charIndex = 0;
@@ -328,7 +355,17 @@
     }
 
     type();
-  </script>
 
+            function launch(url) {
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+            window.open(url, '_blank');
+        }
+  </script>
+  <script src="hotkey.js"></script>
+  <script src="uv/uv.bundle.js" defer></script>
+  <script src="uv/uv.config.js" defer></script>
+  <script src="/launchgames.js" defer></script>
 </body>
 </html>
