@@ -6,10 +6,7 @@
   <title>Google Docs</title>
   <link rel="icon" type="image/x-icon" href="fav.png">
   <script>
-    if (window.location.pathname.endsWith(".html")) {
-        window.history.replaceState(null, null, window.location.pathname.replace(".html", ""));
-    }
-</script>
+
 
   <!-- Tailwind CSS for utility classes -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
@@ -160,7 +157,7 @@
 </header>
 
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold text-center mb-8">Search Space Games</h1>
+    <h1 class="text-4xl font-bold text-center mb-8">Search the web</h1>
     <form class="hvr-bounce-in" id="uv-form">
       <input class="hvr-bounce-in" id="uv-search-engine" value="https://www.google.com/search?q=%s" type="hidden" />
       <input class="proxy w-full p-4 rounded-lg bg-white bg-opacity-10 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500" id="uv-address" type="text" placeholder="Enter a URL or Search" />
