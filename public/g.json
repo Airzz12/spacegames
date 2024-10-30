@@ -2283,30 +2283,6 @@
         ]
     },
     {
-        "name": "! Create Custom App",
-        "url": "",
-        "img": "/assets/media/icons/custom.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "! Interstellar FAQ/Docs",
-        "url": "https://docs.gointerstellar.app",
-        "img": "/assets/media/icons/help_center_googlefonts.png",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "! [NEW] Request A Game",
-        "url": "https://forms.gle/vwdHN3iPz5cLaHaMA",
-        "img": "/assets/media/icons/request.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Fancade",
         "url": "https://play.fancade.com",
         "img": "/assets/media/icon/fancade.jpg",
