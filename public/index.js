@@ -131,3 +131,4 @@ function ifUrl(val = "") {
   const urlPattern = /^(http(s)?:\/\/)?([\w-]+\.)+[\w]{2,}(\/.*)?$/;
   return urlPattern.test(val);
 }
+
