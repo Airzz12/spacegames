@@ -122,3 +122,4 @@ function switchSearch() {
   const selectedOption = selecter.value;
   localStorage.setItem("engine", selectedOption);
 };
+
